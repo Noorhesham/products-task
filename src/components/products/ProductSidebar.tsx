@@ -10,7 +10,7 @@ import { Slider } from "@/components/ui/slider";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useCategories } from "@/hooks/useProducts";
+import { useCategories } from "@/hooks/useEntity";
 import { useDebounce } from "@/hooks/useDebounce";
 import { Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";
 import { SORT_FIELD_LABELS, DEFAULT_LIMIT } from "@/types";

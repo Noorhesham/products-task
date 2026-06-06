@@ -5,16 +5,12 @@ import { ProductSidebar } from "@/components/products/ProductSidebar";
 import { ProductsSection } from "@/components/products/ProductsSection";
 import { ProductGridSkeleton } from "@/components/products/ProductCardSkeleton";
 import { DEFAULT_LIMIT } from "@/types";
-import type { ProductFilters as Filters, SortField } from "@/types";
+import type { ProductFilters as Filters, SortField, ProductsPageProps } from "@/types";
 
 export const metadata: Metadata = {
   title: "Products",
   description: "Browse our full catalog of products",
 };
-
-interface ProductsPageProps {
-  searchParams: Promise<Record<string, string>>;
-}
 
 const VALID_SORT = new Set<SortField>(["price", "rating", "title", "discountPercentage", "stock"]);
 

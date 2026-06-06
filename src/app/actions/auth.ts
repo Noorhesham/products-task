@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { login, registerUser } from "@/lib/api";
 import { AUTH_COOKIE, AUTH_USER_COOKIE } from "@/lib/auth";
-import type { AuthFormState } from "@/types";
+import type { AuthFormState, UserSession } from "@/types";
 
 const COOKIE_OPTIONS = {
   httpOnly: true,
@@ -142,3 +142,17 @@ export async function logoutAction(): Promise<void> {
   cookieStore.delete(AUTH_USER_COOKIE);
   redirect("/login");
 }
+
+// ── Get User Session (Server Action) ──────────────────────────────────────────
+
+export async function getAuthUserAction(): Promise<UserSession | null> {
+  const cookieStore = await cookies();
+  const raw = cookieStore.get(AUTH_USER_COOKIE)?.value;
+  if (!raw) return null;
+  try {
+    return JSON.parse(decodeURIComponent(raw)) as UserSession;
+  } catch {
+    return null;
+  }
+}
+

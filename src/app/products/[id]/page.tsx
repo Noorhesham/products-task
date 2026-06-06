@@ -10,10 +10,7 @@ import { AddToCartButton } from "@/components/products/AddToCartButton";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { fetchProductById } from "@/lib/api";
-
-interface ProductDetailPageProps {
-  params: Promise<{ id: string }>;
-}
+import type { ProductDetailPageProps } from "@/types";
 
 export async function generateMetadata({ params }: ProductDetailPageProps): Promise<Metadata> {
   const { id } = await params;
@@ -78,7 +75,11 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
                   {product.category}
                 </Badge>
                 {product.tags?.map((tag: string) => (
-                  <Badge key={tag} variant="outline" className="text-[10px] capitalize text-muted-foreground px-1.5 py-0">
+                  <Badge
+                    key={tag}
+                    variant="outline"
+                    className="text-[10px] capitalize text-muted-foreground px-1.5 py-0"
+                  >
                     #{tag}
                   </Badge>
                 ))}
@@ -104,11 +105,16 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
               </div>
               <span className="text-sm font-medium">{product.rating.toFixed(2)}</span>
               <span className="text-sm text-muted-foreground">·</span>
-              <span className={cn(
-                "text-sm font-semibold",
-                product.availabilityStatus === "Low Stock" ? "text-amber-600" :
-                product.availabilityStatus === "Out of Stock" ? "text-destructive" : "text-green-600"
-              )}>
+              <span
+                className={cn(
+                  "text-sm font-semibold",
+                  product.availabilityStatus === "Low Stock"
+                    ? "text-amber-600"
+                    : product.availabilityStatus === "Out of Stock"
+                      ? "text-destructive"
+                      : "text-green-600",
+                )}
+              >
                 {product.availabilityStatus} ({product.stock} left)
               </span>
             </div>
@@ -142,7 +148,9 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
             <div className="flex flex-wrap gap-4 text-xs text-muted-foreground">
               <div className="flex items-center gap-1.5">
                 <Package className="h-4 w-4 text-muted-foreground/70" />
-                <span>SKU: <strong className="text-foreground font-semibold">{product.sku}</strong></span>
+                <span>
+                  SKU: <strong className="text-foreground font-semibold">{product.sku}</strong>
+                </span>
               </div>
               <div className="flex items-center gap-1.5">
                 <Tag className="h-4 w-4 text-muted-foreground/70" />
@@ -199,11 +207,16 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
                 </div>
                 <div className="flex justify-between border-b pb-2 sm:border-0 sm:pb-0">
                   <span className="text-muted-foreground">Availability</span>
-                  <span className={cn(
-                    "font-semibold",
-                    product.availabilityStatus === "Low Stock" ? "text-amber-600" :
-                    product.availabilityStatus === "Out of Stock" ? "text-destructive" : "text-green-600"
-                  )}>
+                  <span
+                    className={cn(
+                      "font-semibold",
+                      product.availabilityStatus === "Low Stock"
+                        ? "text-amber-600"
+                        : product.availabilityStatus === "Out of Stock"
+                          ? "text-destructive"
+                          : "text-green-600",
+                    )}
+                  >
                     {product.availabilityStatus}
                   </span>
                 </div>
@@ -227,7 +240,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
                                   "h-3.5 w-3.5",
                                   i < review.rating
                                     ? "fill-yellow-400 text-yellow-400"
-                                    : "text-muted-foreground/30 fill-muted-foreground/10"
+                                    : "text-muted-foreground/30 fill-muted-foreground/10",
                                 )}
                               />
                             ))}
@@ -236,9 +249,9 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
                         </div>
                         <span className="text-xs text-muted-foreground">
                           {new Date(review.date).toLocaleDateString(undefined, {
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric'
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
                           })}
                         </span>
                       </div>
@@ -257,7 +270,9 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
             {/* QR Code Card */}
             {product.meta?.qrCode && (
               <div className="border rounded-xl p-5 bg-card/50 flex flex-col items-center text-center space-y-3">
-                <span className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Product QR Code</span>
+                <span className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+                  Product QR Code
+                </span>
                 <div className="relative w-36 h-36 border p-2 bg-white rounded-lg flex items-center justify-center">
                   <img
                     src={product.meta.qrCode}
@@ -275,7 +290,9 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
             {/* Tags Card */}
             {product.tags && product.tags.length > 0 && (
               <div className="border rounded-xl p-5 bg-card/50 space-y-3">
-                <span className="text-xs font-semibold uppercase tracking-widest text-muted-foreground block">Product Tags</span>
+                <span className="text-xs font-semibold uppercase tracking-widest text-muted-foreground block">
+                  Product Tags
+                </span>
                 <div className="flex flex-wrap gap-1.5">
                   {product.tags.map((tag: string) => (
                     <Badge key={tag} variant="secondary" className="capitalize text-xs px-2 py-0.5">

@@ -59,9 +59,7 @@ export interface AddToCartButtonProps {
   product: Product;
 }
 
-export interface NavbarProps {
-  user: UserSession | null;
-}
+export interface NavbarProps {}
 
 export interface MainLayoutProps {
   children: ReactNode;

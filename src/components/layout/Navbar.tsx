@@ -12,9 +12,11 @@ import { useUIStore } from "@/store/uiStore";
 import { useCartStore, cartItemCount } from "@/store/cartStore";
 import { CartSheet } from "@/components/cart/CartSheet";
 import { useDebounce } from "@/hooks/useDebounce";
-import type { NavbarProps } from "@/types";
+import { useUser } from "@/hooks/useEntity";
+import { Skeleton } from "@/components/ui/skeleton";
 
-export function Navbar({ user }: NavbarProps) {
+export function Navbar() {
+  const { data: user, isLoading } = useUser();
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -91,12 +93,6 @@ export function Navbar({ user }: NavbarProps) {
 
           {/* Desktop actions */}
           <div className="hidden md:flex items-center gap-3 shrink-0 ml-auto">
-            {user && (
-              <div className="flex items-center gap-2 border-r pr-3 border-border">
-                <img src={user.image} alt={user.firstName} className="h-8 w-8 rounded-full border bg-muted" />
-                <span className="text-sm font-medium text-foreground">Hi, {user.firstName}</span>
-              </div>
-            )}
             <div className="relative">
               <Button variant="ghost" size="icon" onClick={openCart} aria-label={`Cart (${count} items)`}>
                 <ShoppingCart className="h-5 w-5" />
@@ -107,13 +103,24 @@ export function Navbar({ user }: NavbarProps) {
                 </Badge>
               )}
             </div>
-            {user ? (
-              <form action={logoutAction}>
-                <Button variant="outline" size="sm" type="submit" disabled={isPending}>
-                  <LogOut className="h-4 w-4 mr-1.5" />
-                  Logout
-                </Button>
-              </form>
+            {isLoading ? (
+              <div className="flex items-center gap-2 pl-2 border-l border-border">
+                <Skeleton className="h-8 w-8 rounded-full" />
+                <Skeleton className="h-4 w-16" />
+              </div>
+            ) : user ? (
+              <>
+                <div className="flex items-center gap-2 border-r pr-3 border-border">
+                  <img src={user.image} alt={user.firstName} className="h-8 w-8 rounded-full border bg-muted" />
+                  <span className="text-sm font-medium text-foreground">Hi, {user.firstName}</span>
+                </div>
+                <form action={logoutAction}>
+                  <Button variant="outline" size="sm" type="submit" disabled={isPending}>
+                    <LogOut className="h-4 w-4 mr-1.5" />
+                    Logout
+                  </Button>
+                </form>
+              </>
             ) : (
               <div className="flex items-center gap-2">
                 <Link
@@ -147,7 +154,15 @@ export function Navbar({ user }: NavbarProps) {
         {/* Mobile expanded */}
         {isMobileMenuOpen && (
           <div className="md:hidden border-t px-4 py-3 space-y-3 bg-background animate-in fade-in-0 slide-in-from-top-4 duration-200 ease-out origin-top">
-            {user && (
+            {isLoading ? (
+              <div className="flex items-center gap-3 pb-3 border-b border-border">
+                <Skeleton className="h-10 w-10 rounded-full" />
+                <div className="space-y-1.5 flex-1">
+                  <Skeleton className="h-4 w-24" />
+                  <Skeleton className="h-3 w-36" />
+                </div>
+              </div>
+            ) : user ? (
               <div className="flex items-center gap-3 pb-3 border-b border-border">
                 <img src={user.image} alt={user.firstName} className="h-10 w-10 rounded-full border bg-muted" />
                 <div>
@@ -157,7 +172,7 @@ export function Navbar({ user }: NavbarProps) {
                   <p className="text-xs text-muted-foreground">{user.email}</p>
                 </div>
               </div>
-            )}
+            ) : null}
             {!isProductsListing && (
               <Input
                 type="search"
@@ -168,7 +183,9 @@ export function Navbar({ user }: NavbarProps) {
               />
             )}
             <div className="pt-1">
-              {user ? (
+              {isLoading ? (
+                <Skeleton className="h-8 w-full rounded-md" />
+              ) : user ? (
                 <form action={logoutAction} className="w-full">
                   <Button variant="outline" size="sm" type="submit" className="w-full">
                     <LogOut className="h-4 w-4 mr-1.5" />

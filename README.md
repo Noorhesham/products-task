@@ -222,12 +222,24 @@ src/
 
 | Technique | Benefit |
 |---|---|
+| Non-Blocking CSR Layout Session | Replaced blocking server-side cookie checks with client-side React Query, allowing layout shell to render instantly |
 | Async Server Components + Suspense | Zero client JS for data fetching on the products page |
 | Keyed Suspense boundary | Instant skeleton feedback on every filter change, no full reload |
 | ISR cache (`revalidate: 300`) | Repeated navigations served from cache in < 1 ms |
 | Debounced URL updates | No server request on every keystroke or slider tick |
 | In-memory price filtering | Single `limit=200` fetch when price filter active — no N+1 requests |
 | `next/image` with remote patterns | Automatic WebP conversion, lazy loading, size hints |
+
+---
+
+## Architectural Polish & Best Practices
+
+- **Centralized Typings (`src/types`)** — Consolidated all domain entities (`Product`, `Category`, `CartItem`, `UserSession`) and React component prop definitions under a structured `src/types/` namespace. Enforces absolute type safety and avoids local/inline duplications.
+- **Reusable Query Interface (`useEntity`)** — Designed a generic, reusable client hook wrapper around TanStack Query to manage entities uniformly (used for both category listings and user session fetching).
+- **Smooth Loading Skeletons** — Integrates shimmer skeleton UI states in the navigation header during client-side session checks, preventing page jumps and layout shifts.
+- **Ubiquitous Header Search** — Fixed navbar search functionality to enable searching from any route (e.g. details page, auth page) with automated redirection back to the catalogue (`/products?search=<query>`).
+- **Dead Code Elimination** — Cleaned up old/unused assets, deleting the deprecated `ProductFilters` component in favor of the unified `ProductSidebar`, and removing dead state properties (`cartCount` etc) from the UI store.
+
 
 ---
 

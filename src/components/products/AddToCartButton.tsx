@@ -7,7 +7,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { useCartStore } from "@/store/cartStore";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import type { Product, AddToCartButtonProps } from "@/types";
+import type { AddToCartButtonProps } from "@/types";
 
 export function AddToCartButton({ product }: AddToCartButtonProps) {
   const addItem = useCartStore((s) => s.addItem);
@@ -44,10 +44,7 @@ export function AddToCartButton({ product }: AddToCartButtonProps) {
           </>
         )}
       </Button>
-      <Link
-        href="/products"
-        className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
-      >
+      <Link href="/products" className={cn(buttonVariants({ variant: "outline", size: "lg" }))}>
         Browse More
       </Link>
     </div>
