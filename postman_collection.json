@@ -1,0 +1,146 @@
+{
+  "info": {
+    "name": "ShopNext — DummyJSON API",
+    "description": "All API endpoints used by the ShopNext e-commerce application. Base URL: https://dummyjson.com",
+    "_postman_id": "shopnext-dummyjson-v1",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "BASE_URL",
+      "value": "https://dummyjson.com",
+      "type": "string"
+    },
+    {
+      "key": "TOKEN",
+      "value": "",
+      "description": "Set this after a successful login response"
+    }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{BASE_URL}}/auth/login",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"emilys\",\n  \"password\": \"emilyspass\",\n  \"expiresInMins\": 60\n}"
+            },
+            "description": "Authenticates a user and returns accessToken + refreshToken JWTs.\n\nTest credentials:\n- emilys / emilyspass\n- michaelw / michaelwpass\n- sophiab / sophiabpass"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const json = pm.response.json();",
+                  "if (json.accessToken) {",
+                  "  pm.collectionVariables.set('TOKEN', json.accessToken);",
+                  "  console.log('Token saved:', json.accessToken.slice(0, 30) + '...');",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get Current User (requires token)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{TOKEN}}" }],
+            "url": "{{BASE_URL}}/auth/me",
+            "description": "Returns the currently authenticated user. Requires the Bearer token from Login."
+          }
+        },
+        {
+          "name": "Register (mock — does not persist)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{BASE_URL}}/users/add",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Jane\",\n  \"lastName\": \"Doe\",\n  \"email\": \"jane@example.com\",\n  \"username\": \"janedoe\",\n  \"password\": \"securepass\",\n  \"age\": 25\n}"
+            },
+            "description": "Creates a new user entry in DummyJSON. NOTE: DummyJSON is a mock API — this user is not persisted and cannot be used to log in."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Products",
+      "item": [
+        {
+          "name": "Get All Products",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{BASE_URL}}/products?limit=12&skip=0&sortBy=price&order=asc",
+              "host": ["{{BASE_URL}}"],
+              "path": ["products"],
+              "query": [
+                { "key": "limit", "value": "12", "description": "Items per page" },
+                { "key": "skip", "value": "0", "description": "Items to skip (offset)" },
+                { "key": "sortBy", "value": "price", "description": "price | rating | title | discountPercentage | stock" },
+                { "key": "order", "value": "asc", "description": "asc | desc" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Search Products",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{BASE_URL}}/products/search?q=phone&limit=12&skip=0",
+              "host": ["{{BASE_URL}}"],
+              "path": ["products", "search"],
+              "query": [
+                { "key": "q", "value": "phone" },
+                { "key": "limit", "value": "12" },
+                { "key": "skip", "value": "0" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Single Product",
+          "request": {
+            "method": "GET",
+            "url": "{{BASE_URL}}/products/1",
+            "description": "Returns full product details including images array, reviews, and metadata."
+          }
+        },
+        {
+          "name": "Get Products by Category",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{BASE_URL}}/products/category/smartphones?limit=12&skip=0",
+              "host": ["{{BASE_URL}}"],
+              "path": ["products", "category", "smartphones"],
+              "query": [
+                { "key": "limit", "value": "12" },
+                { "key": "skip", "value": "0" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get All Categories",
+          "request": {
+            "method": "GET",
+            "url": "{{BASE_URL}}/products/categories",
+            "description": "Returns all product categories with slug, name, and URL."
+          }
+        }
+      ]
+    }
+  ]
+}
