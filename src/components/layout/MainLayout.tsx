@@ -2,9 +2,7 @@ import { Suspense, type ReactNode } from "react";
 import { Navbar } from "./Navbar";
 import { getAuthUser } from "@/lib/auth";
 
-interface MainLayoutProps {
-  children: ReactNode;
-}
+import type { MainLayoutProps } from "@/types";
 
 export async function MainLayout({ children }: MainLayoutProps) {
   const user = await getAuthUser();

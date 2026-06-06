@@ -7,11 +7,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { AlertCircle, Loader2 } from "lucide-react";
-
-type State = { error: string } | null;
+import type { AuthFormState } from "@/types";
 
 export function RegisterForm() {
-  const [state, formAction, isPending] = useActionState<State, FormData>(
+  const [state, formAction, isPending] = useActionState<AuthFormState, FormData>(
     registerAction,
     null
   );

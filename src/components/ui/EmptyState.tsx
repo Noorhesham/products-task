@@ -1,13 +1,7 @@
 import { PackageSearch, LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-interface EmptyStateProps {
-  title?: string;
-  description?: string;
-  icon?: LucideIcon;
-  action?: React.ReactNode;
-  className?: string;
-}
+import type { EmptyStateProps } from "@/types";
 
 export function EmptyState({
   title = "No products found",

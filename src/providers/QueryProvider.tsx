@@ -2,11 +2,8 @@
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { useState, type ReactNode } from "react";
-
-interface QueryProviderProps {
-  children: ReactNode;
-}
+import { useState } from "react";
+import type { QueryProviderProps } from "@/types";
 
 export function QueryProvider({ children }: QueryProviderProps) {
   // Create a stable QueryClient instance per component tree (not module-level)

@@ -12,16 +12,9 @@ import { useUIStore } from "@/store/uiStore";
 import { useCartStore, cartItemCount } from "@/store/cartStore";
 import { CartSheet } from "@/components/cart/CartSheet";
 import { useDebounce } from "@/hooks/useDebounce";
+import type { NavbarProps } from "@/types";
 
-interface User {
-  username: string;
-  email: string;
-  firstName: string;
-  lastName: string;
-  image: string;
-}
-
-export function Navbar({ user }: { user: User | null }) {
+export function Navbar({ user }: NavbarProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -49,9 +42,7 @@ export function Navbar({ user }: { user: User | null }) {
       params.delete("search");
     }
     params.delete("page"); // reset page on new search
-    if (pathname.startsWith("/products") && !pathname.includes("/products/")) {
-      startTransition(() => router.push(`/products?${params.toString()}`));
-    }
+    startTransition(() => router.push(`/products?${params.toString()}`));
   }, [debouncedSearch]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {

@@ -36,3 +36,14 @@ export interface RegisteredUser {
   email: string;
   username: string;
 }
+
+export interface UserSession {
+  username: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  image: string;
+}
+
+export type AuthFormState = { error: string } | null;
+

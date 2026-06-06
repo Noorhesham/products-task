@@ -4,11 +4,7 @@ import { useState, useRef } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
-interface ProductImageGalleryProps {
-  images: string[];
-  thumbnail: string;
-  title: string;
-}
+import type { ProductImageGalleryProps } from "@/types";
 
 export function ProductImageGallery({ images, thumbnail, title }: ProductImageGalleryProps) {
   // Deduplicate: thumbnail first, then remaining images

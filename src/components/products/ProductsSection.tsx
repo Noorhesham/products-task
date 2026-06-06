@@ -2,12 +2,7 @@ import { fetchProducts, fetchProductsByCategory, searchProducts } from "@/lib/ap
 import { ProductGrid } from "./ProductGrid";
 import { ProductPagination } from "./ProductPagination";
 import { DEFAULT_LIMIT, SORT_FIELD_LABELS } from "@/types";
-import type { Product, ProductFilters, ProductsResponse } from "@/types";
-
-interface ProductsSectionProps {
-  filters: ProductFilters;
-  rawParams: Record<string, string>;
-}
+import type { Product, ProductFilters, ProductsResponse, ProductsSectionProps } from "@/types";
 
 const PRICE_MIN_DEFAULT = 0;
 const PRICE_MAX_DEFAULT = 2000;

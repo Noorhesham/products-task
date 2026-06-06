@@ -7,11 +7,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { useCartStore } from "@/store/cartStore";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import type { Product } from "@/types";
-
-interface AddToCartButtonProps {
-  product: Product;
-}
+import type { Product, AddToCartButtonProps } from "@/types";
 
 export function AddToCartButton({ product }: AddToCartButtonProps) {
   const addItem = useCartStore((s) => s.addItem);

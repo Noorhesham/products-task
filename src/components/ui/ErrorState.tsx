@@ -1,13 +1,7 @@
 import { AlertCircle, LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-interface ErrorStateProps {
-  title?: string;
-  description?: string;
-  icon?: LucideIcon;
-  action?: React.ReactNode;
-  className?: string;
-}
+import type { ErrorStateProps } from "@/types";
 
 export function ErrorState({
   title = "Failed to load products",

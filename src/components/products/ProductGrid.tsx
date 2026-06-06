@@ -6,14 +6,7 @@ import { ProductCard } from "./ProductCard";
 import { ProductGridSkeleton } from "./ProductCardSkeleton";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { ErrorState } from "@/components/ui/ErrorState";
-import type { Product } from "@/types";
-
-interface ProductGridProps {
-  products: Product[] | undefined;
-  isLoading: boolean;
-  isError: boolean;
-  errorMessage?: string;
-}
+import type { Product, ProductGridProps } from "@/types";
 
 export function ProductGrid({ products, isLoading, isError, errorMessage }: ProductGridProps) {
   const gridRef = useRef<HTMLDivElement>(null);

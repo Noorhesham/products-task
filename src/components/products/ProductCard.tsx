@@ -3,11 +3,7 @@ import Link from "next/link";
 import { Star } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import type { Product } from "@/types";
-
-interface ProductCardProps {
-  product: Product;
-}
+import type { Product, ProductCardProps } from "@/types";
 
 export function ProductCard({ product }: ProductCardProps) {
   const discountedPrice = product.price * (1 - product.discountPercentage / 100);

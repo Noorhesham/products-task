@@ -4,6 +4,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { login, registerUser } from "@/lib/api";
 import { AUTH_COOKIE, AUTH_USER_COOKIE } from "@/lib/auth";
+import type { AuthFormState } from "@/types";
 
 const COOKIE_OPTIONS = {
   httpOnly: true,
@@ -15,12 +16,10 @@ const COOKIE_OPTIONS = {
 
 // ── Login ─────────────────────────────────────────────────────────────────────
 
-export type LoginFormState = { error: string } | null;
-
 export async function loginAction(
-  _prevState: LoginFormState,
+  _prevState: AuthFormState,
   formData: FormData
-): Promise<LoginFormState> {
+): Promise<AuthFormState> {
   const username = formData.get("username");
   const password = formData.get("password");
 
@@ -84,12 +83,10 @@ export async function loginAction(
 
 // ── Register ─────────────────────────────────────────────────────────────────
 
-export type RegisterFormState = { error: string } | null;
-
 export async function registerAction(
-  _prevState: RegisterFormState,
+  _prevState: AuthFormState,
   formData: FormData
-): Promise<RegisterFormState> {
+): Promise<AuthFormState> {
   const firstName = (formData.get("firstName") as string)?.trim();
   const lastName = (formData.get("lastName") as string)?.trim();
   const email = (formData.get("email") as string)?.trim();

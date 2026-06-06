@@ -15,9 +15,7 @@ export function ProductCardSkeleton() {
   );
 }
 
-interface ProductGridSkeletonProps {
-  count?: number;
-}
+import type { ProductGridSkeletonProps } from "@/types";
 
 export function ProductGridSkeleton({ count = 8 }: ProductGridSkeletonProps) {
   return (

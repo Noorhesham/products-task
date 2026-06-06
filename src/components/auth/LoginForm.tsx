@@ -6,11 +6,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { AlertCircle, Loader2 } from "lucide-react";
-
-type FormState = { error: string } | null;
+import type { AuthFormState } from "@/types";
 
 export function LoginForm() {
-  const [state, formAction, isPending] = useActionState<FormState, FormData>(
+  const [state, formAction, isPending] = useActionState<AuthFormState, FormData>(
     loginAction,
     null
   );

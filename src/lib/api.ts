@@ -1,13 +1,16 @@
-import type { Product, ProductsResponse, Category, AuthUser, RegisterInput, RegisteredUser, SortField, SortOrder } from "@/types";
+import type {
+  Product,
+  ProductsResponse,
+  Category,
+  AuthUser,
+  RegisterInput,
+  RegisteredUser,
+  SortField,
+  SortOrder,
+  FetchOptions,
+} from "@/types";
 
 const BASE_URL = "https://dummyjson.com";
-
-export interface FetchOptions {
-  limit?: number;
-  skip?: number;
-  sortBy?: SortField;
-  order?: SortOrder;
-}
 
 function buildQuery(opts: FetchOptions = {}): string {
   const params = new URLSearchParams();

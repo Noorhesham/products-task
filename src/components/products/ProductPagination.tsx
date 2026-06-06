@@ -11,14 +11,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import type { ProductFilters } from "@/types";
-
-interface ProductPaginationProps {
-  total: number;
-  filters: ProductFilters;
-  /** Raw search params preserved so page changes keep all active filters */
-  rawParams: Record<string, string>;
-}
+import type { ProductFilters, ProductPaginationProps } from "@/types";
 
 function buildHref(rawParams: Record<string, string>, page: number): string {
   const p = new URLSearchParams(rawParams);
